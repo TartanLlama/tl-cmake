@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.8)
 function (tl_add_library name)
   cmake_parse_arguments(ARG "" "" "SOURCES")
   add_library(${name} INTERFACE)
-  target_sources(optional INTERFACE 
+  target_sources(${name} INTERFACE 
                  $<BUILD_INTERFACE:${ARG_SOURCES}>)
-  target_include_directories(optional INTERFACE
+  target_include_directories(${name} INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
  )
