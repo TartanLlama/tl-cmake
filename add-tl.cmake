@@ -13,7 +13,6 @@ function (tl_add_library name)
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(
     "${PROJECT_BINARY_DIR}/tl-${name}-config-version.cmake"
-    VERSION 1.0.0
     COMPATIBILITY SameMajorVersion
 )
 
@@ -26,7 +25,7 @@ function (tl_add_library name)
   configure_package_config_file(
     "${PROJECT_SOURCE_DIR}/cmake/tl-${name}-config.cmake.in"
     "${PROJECT_BINARY_DIR}/tl-${name}-config.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tl-${name}
+    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/tl-${name}
   )
 
   install(EXPORT tl-targets
@@ -35,11 +34,11 @@ function (tl_add_library name)
     NAMESPACE
       tl::
     DESTINATION
-      ${CMAKE_INSTALL_LIBDIR}/cmake/tl-${name}
+      ${CMAKE_INSTALL_DATADIR}/cmake/tl-${name}
   )
 
   install(FILES "${PROJECT_BINARY_DIR}/tl-${name}-config-version.cmake"
                 "${PROJECT_BINARY_DIR}/tl-${name}-config.cmake"
-          DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tl-${name})
+          DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/tl-${name})
   install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endfunction()
