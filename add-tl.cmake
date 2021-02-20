@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 function (tl_add_library name)
-  cmake_parse_arguments(ARG "" "" "SOURCES")
+  cmake_parse_arguments(ARG "ARCH_INDEPENDENT" "" "SOURCES")
   add_library(${name} INTERFACE)
   target_sources(${name} INTERFACE 
                  $<BUILD_INTERFACE:${ARG_SOURCES}>)
@@ -11,10 +11,16 @@ function (tl_add_library name)
  )
 
   include(CMakePackageConfigHelpers)
+  if(ARG_ARCH_INDEPENDENT)
+    set(arch_flags ARCH_INDEPENDENT)
+  else()
+    set(arch_flags )
+  endif()
   write_basic_package_version_file(
     "${PROJECT_BINARY_DIR}/tl-${name}-config-version.cmake"
     COMPATIBILITY SameMajorVersion
-)
+    ${arch_flags}
+  )
 
   include(GNUInstallDirs)
   install(TARGETS ${name}
